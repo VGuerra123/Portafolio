@@ -23,9 +23,9 @@ export const Footer = () => {
         {/* Iconos sociales */}
         <div className="flex items-center gap-6">
           {[
-            { href: 'https://github.com/tu-user', Icon: Github, label: 'GitHub' },
-            { href: 'https://linkedin.com/in/tu-perfil', Icon: Linkedin, label: 'LinkedIn' },
-            { href: 'mailto:tu@email.com', Icon: Mail, label: 'Email' },
+            { href: 'https://github.com/VGuerra123', Icon: Github, label: 'GitHub' },
+            { href: 'https://linkedin.com/in/víctor-guerra', Icon: Linkedin, label: 'LinkedIn' },
+            { href: 'mailto:victor.guerra.z@usach.cl', Icon: Mail, label: 'Email' },
           ].map(({ href, Icon, label }) => (
             <motion.a
               key={label}

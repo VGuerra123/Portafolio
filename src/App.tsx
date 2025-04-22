@@ -1,17 +1,19 @@
-// src/App.tsx
 import React from 'react';
-import  Header from './components/layout/Header';
+import Header from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
-import  Hero  from './components/sections/Hero';
+import Hero from './components/sections/Hero';
 import { HabilidadesTecnicas } from './components/sections/HabilidadesTecnicas';
 import { Projects } from './components/sections/Projects';
-import  Contact  from './components/sections/Contact';
+import Contact from './components/sections/Contact';
 import { Formacion } from './components/sections/Formacion';
 import TechPet from './components/ui/TechPet';
 import GlobalToggles from './components/ui/GlobalToggles';
 import BadgesWithTooltips from './components/ui/BadgesWithTooltips';
 import FloatingTechIcons from './components/ui/FloatingTechIcons';
 import VerticalTechCarousel from './components/ui/VerticalTechCarousel';
+
+// ✅ Importación de la imagen
+import profileImage from './assets/profile.png'; // <-- ruta ejemplo
 
 function App() {
   return (
@@ -23,7 +25,7 @@ function App() {
       <BadgesWithTooltips />
       <Header />
       <main>
-        <Hero />
+        <Hero profileImage={profileImage} /> {/* ✅ Prop agregada */}
         <Formacion />
         <HabilidadesTecnicas />
         <Projects />

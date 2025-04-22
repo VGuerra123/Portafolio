@@ -4,13 +4,13 @@ import FoxAvatar from '../../assets/Contact/fox-avatar-contact.png';
 
 const contactMethods = [
   {
-    href: 'https://www.linkedin.com/in/tu-perfil',
+    href: 'https://www.linkedin.com/in/víctor-guerra',
     iconSrc: 'https://cdn-icons-png.flaticon.com/512/174/174857.png',
     label: 'LinkedIn',
     style: 'bg-white/10 hover:bg-white/20 backdrop-blur'
   },
   {
-    href: 'mailto:example@example.com',
+    href: 'mailto:v.guerra.dev@gmail.com',
     iconSrc: 'https://cdn.simpleicons.org/gmail/EA4335',
     label: 'Email',
     style: 'bg-white/10 hover:bg-white/20 backdrop-blur'
@@ -95,7 +95,7 @@ const FormularioContacto = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <h2 className="text-4xl sm:text-5xl font-extrabold mb-4">¡Hablemos!</h2>
-          <p className="text-gray-300 mb-8">Déjanos tu mensaje y nos pondremos en contacto lo antes posible.</p>
+          <p className="text-gray-300 mb-8">Déja tu mensaje y me pondré en contacto lo antes posible.</p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
