@@ -1,120 +1,98 @@
-// src/components/sections/HabilidadesTecnicas.tsx
 import React from 'react';
-import { useRef } from 'react';
-import { Award, Code2, Database, Layout, Server, Terminal } from 'lucide-react';
-import StatsCard from '../ui/StatsCard';
+import { motion } from 'framer-motion';
+import { BadgeCheck, Rocket, Code2, Sparkles } from 'lucide-react';
 
-const skills = [
+const techHighlights = [
   {
-    category: 'Frontend',
-    items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Redux'],
-    icon: <Layout className="w-6 h-6" />,
+    title: 'Frontend Creativo',
+    description: 'Diseños modernos, componentes reutilizables, animaciones e interfaces accesibles.',
+    skills: ['React', 'Next.js', 'Tailwind CSS', 'TypeScript'],
+    icon: <Rocket className="w-7 h-7 text-cyan-400" />,
   },
   {
-    category: 'Backend',
-    items: ['Node.js', 'Python', 'Django', 'Express', 'FastAPI'],
-    icon: <Server className="w-6 h-6" />,
+    title: 'Backend Escalable',
+    description: 'Microservicios seguros con Node.js y Python, API REST y autenticación robusta.',
+    skills: ['Node.js', 'Express', 'Django', 'FastAPI'],
+    icon: <Code2 className="w-7 h-7 text-purple-400" />,
   },
   {
-    category: 'Base de Datos',
-    items: ['PostgreSQL', 'MongoDB', 'Redis', 'Firebase'],
-    icon: <Database className="w-6 h-6" />,
+    title: 'DevOps Ágil',
+    description: 'Contenedores, CI/CD y despliegues automáticos en AWS con Docker y Kubernetes.',
+    skills: ['Docker', 'CI/CD', 'Kubernetes', 'AWS'],
+    icon: <BadgeCheck className="w-7 h-7 text-yellow-400" />,
   },
-  {
-    category: 'DevOps',
-    items: ['Docker', 'AWS', 'CI/CD', 'Kubernetes'],
-    icon: <Terminal className="w-6 h-6" />,
-  },
-];
-
-const certifications = [
-  'AWS Certified Solutions Architect',
-  'IBM Full Stack Cloud Developer',
-  'MongoDB Certified Developer',
-  'Docker Certified Associate',
 ];
 
 export const HabilidadesTecnicas = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
   return (
-    <section id = "skills" className="py-20 px-6 relative overflow-hidden"  ref={containerRef}>
-      {/* Fondo animado */}
-      <div className="absolute inset-0 overflow-hidden z-0">
-        <div className="absolute -top-1/2 -left-1/2 w-[150%] h-[150%] bg-purple-500/20 rounded-full blur-[140px] animate-pulse" />
-        <div className="absolute -bottom-1/2 -right-1/2 w-[150%] h-[150%] bg-cyan-500/20 rounded-full blur-[140px] animate-pulse" style={{ animationDelay: '2s' }} />
+    <section id="skills" className="py-28 px-6 relative overflow-hidden bg-gradient-to-b from-black via-gray-900 to-black text-white">
+      <div className="absolute inset-0 z-0">
+        <div className="absolute -top-40 -left-40 w-[300px] h-[300px] bg-cyan-400/20 blur-[120px] animate-pulse" />
+        <div className="absolute bottom-0 right-0 w-[250px] h-[250px] bg-purple-500/20 blur-[100px] animate-pulse delay-500" />
       </div>
 
-      <div className="container mx-auto max-w-7xl relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Skills */}
-        <div
-          className="lg:col-span-8 space-y-6 bg-white/5 backdrop-blur-md rounded-3xl p-10 shadow-2xl border border-white/10 hover:shadow-cyan-500/20 transition duration-300"
-          data-aos="fade-up"
+      <div className="relative z-10 max-w-6xl mx-auto text-center mb-20">
+        <motion.h2
+          className="text-5xl font-bold animate-gradient-text mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl font-bold mb-8 animate-gradient-text">Habilidades Técnicas</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {skills.map((category, index) => (
-              <div
-                key={category.category}
-                data-aos="zoom-in-up"
-                data-aos-delay={index * 100}
-                className="glass-card rounded-2xl p-6 card-hover"
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="text-cyan-400">{category.icon}</div>
-                  <h3 className="font-semibold text-lg text-white">{category.category}</h3>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {category.items.map((item) => (
-                    <span
-                      key={item}
-                      className="px-3 py-1 bg-dark-300/50 rounded-full text-sm text-gray-300 border border-dark-400/50"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+          Mi Stack Profesional
+        </motion.h2>
+        <motion.p
+          className="text-gray-300 max-w-2xl mx-auto"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
+          Conecto diseño y funcionalidad construyendo soluciones sólidas y elegantes desde el frontend hasta el backend y la nube.
+        </motion.p>
+      </div>
 
-        {/* Certificaciones + Stats */}
-        <div className="lg:col-span-4 space-y-6">
-          <div
-            className="glass-card rounded-2xl p-6 shadow-xl"
-            data-aos="fade-left"
+      <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-10 max-w-7xl mx-auto">
+        {techHighlights.map((block, index) => (
+          <motion.div
+            key={index}
+            className="bg-white/5 backdrop-blur-xl p-8 rounded-3xl border border-white/10 shadow-lg hover:shadow-cyan-500/30 transition-all"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.3, duration: 0.6 }}
           >
-            <div className="flex items-center gap-2 mb-6">
-              <Award className="w-6 h-6 text-cyan-400" />
-              <h2 className="text-2xl font-bold text-white">Certificaciones</h2>
+            <div className="flex items-center justify-center mb-6">
+              {block.icon}
             </div>
-            <div className="space-y-4">
-              {certifications.map((cert, index) => (
-                <div
-                  key={cert}
-                  className="flex items-center gap-3 bg-dark-300/30 p-4 rounded-xl"
-                  data-aos="fade-right"
-                  data-aos-delay={200 + index * 100}
+            <h3 className="text-xl font-semibold text-white mb-2 text-center">
+              {block.title}
+            </h3>
+            <p className="text-sm text-gray-300 text-center mb-4">
+              {block.description}
+            </p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {block.skills.map((skill) => (
+                <span
+                  key={skill}
+                  className="text-xs px-3 py-1 rounded-full bg-white/10 border border-white/10 text-white"
                 >
-                  <div className="w-2 h-2 bg-cyan-400 rounded-full" />
-                  <span className="text-gray-300">{cert}</span>
-                </div>
+                  {skill}
+                </span>
               ))}
             </div>
-          </div>
-
-          {/* Stats */}
-          <div
-            className="grid grid-cols-2 gap-4"
-            data-aos="fade-up"
-            data-aos-delay="300"
-          >
-            <StatsCard icon={<Code2 />} title="Proyectos" value="50+" />
-            <StatsCard icon={<Layout />} title="Experiencia" value="5+ años" />
-          </div>
-        </div>
+          </motion.div>
+        ))}
       </div>
+
+      <motion.div
+        className="relative z-10 mt-20 text-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1, duration: 1 }}
+      >
+        <p className="text-white/70 text-sm flex items-center justify-center gap-2">
+          <Sparkles className="w-4 h-4 text-cyan-400" />
+          Siempre aprendiendo nuevas tecnologías para crear experiencias digitales inolvidables.
+        </p>
+      </motion.div>
     </section>
   );
 };

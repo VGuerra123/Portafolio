@@ -5,7 +5,7 @@ import { Footer } from './components/layout/Footer';
 import  Hero  from './components/sections/Hero';
 import { HabilidadesTecnicas } from './components/sections/HabilidadesTecnicas';
 import { Projects } from './components/sections/Projects';
-import { Contact } from './components/sections/Contact';
+import  Contact  from './components/sections/Contact';
 import { Formacion } from './components/sections/Formacion';
 import TechPet from './components/ui/TechPet';
 import GlobalToggles from './components/ui/GlobalToggles';
