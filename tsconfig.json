@@ -1,7 +1,16 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "module": "esnext",
+    "target": "esnext",
+    "jsx": "react",
+    "types": ["react", "react-dom", "node"],
+    "skipLibCheck": true
+  },
+  "include": [
+    "src/**/*",
+    "src/assets/Formacion/*.svg"  // Asegúrate de que el patrón de búsqueda esté incluido
   ]
 }

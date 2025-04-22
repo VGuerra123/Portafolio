@@ -1,4 +1,5 @@
 // src/components/sections/HabilidadesTecnicas.tsx
+import React from 'react';
 import { useRef } from 'react';
 import { Award, Code2, Database, Layout, Server, Terminal } from 'lucide-react';
 import StatsCard from '../ui/StatsCard';
@@ -37,7 +38,7 @@ export const HabilidadesTecnicas = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section className="py-20 px-6 relative overflow-hidden" id="about" ref={containerRef}>
+    <section id = "skills" className="py-20 px-6 relative overflow-hidden"  ref={containerRef}>
       {/* Fondo animado */}
       <div className="absolute inset-0 overflow-hidden z-0">
         <div className="absolute -top-1/2 -left-1/2 w-[150%] h-[150%] bg-purple-500/20 rounded-full blur-[140px] animate-pulse" />
