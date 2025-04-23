@@ -15,7 +15,7 @@ const Hero: React.FC<HeroProps> = ({ profileImage }) => {
   }, []);
 
   const handleProjectsClick = () => {
-    const section = document.getElementById('formacion');
+    const section = document.getElementById('projects');
     if (section) section.scrollIntoView({ behavior: 'smooth' });
   };
 

@@ -68,3 +68,69 @@ body {
   @apply border border-cyan-400 text-cyan-300 hover:bg-cyan-600 hover:text-white font-semibold py-2 px-6 rounded-xl shadow-md transition;
 }
 
+@keyframes soft-blink {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+.animate-soft-blink {
+  animation: soft-blink 4s ease-in-out infinite;
+}
+
+.floating-text {
+  text-shadow: 0 0 6px rgba(6, 182, 212, 0.3);
+}
+/* Aurora digital animada */
+.aurora-bg {
+  background: linear-gradient(115deg, #06b6d4, #3b82f6, #9333ea);
+  background-size: 400% 400%;
+  animation: aurora-move 14s ease-in-out infinite;
+  filter: blur(140px);
+  opacity: 0.25;
+}
+
+@keyframes aurora-move {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+/* Fondo radial leve */
+.bg-radial-gradient {
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.02) 0%, transparent 80%);
+}
+
+/* Globo animado suavemente flotante */
+@keyframes dialog-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.animate-dialog-float {
+  animation: dialog-float 4s ease-in-out infinite;
+}
+
+/* Frase tipo máquina de escribir */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+.animate-typing {
+  animation: typing 4s steps(60, end) 1 forwards;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  max-width: 100%;
+}
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+.animate-pulse-slow {
+  animation: pulse-slow 6s ease-in-out infinite;
+}
