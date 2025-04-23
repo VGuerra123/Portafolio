@@ -7,31 +7,27 @@ const contactMethods = [
     href: 'https://www.linkedin.com/in/víctor-guerra',
     iconSrc: 'https://cdn-icons-png.flaticon.com/512/174/174857.png',
     label: 'LinkedIn',
-    style: 'bg-white/10 hover:bg-white/20 backdrop-blur'
   },
   {
     href: 'mailto:v.guerra.dev@gmail.com',
     iconSrc: 'https://cdn.simpleicons.org/gmail/EA4335',
     label: 'Email',
-    style: 'bg-white/10 hover:bg-white/20 backdrop-blur'
   },
   {
     href: 'https://wa.me/11234567890',
     iconSrc: 'https://cdn.simpleicons.org/whatsapp/25D366',
     label: 'WhatsApp',
-    style: 'bg-white/10 hover:bg-white/20 backdrop-blur'
-  }
+  },
 ];
 
 const FormularioContacto = () => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setTimeout(() => {
@@ -42,10 +38,12 @@ const FormularioContacto = () => {
   };
 
   return (
-    <section id="contact" className="relative py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 to-black text-white">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <section id="contact" className="relative py-16 px-4 sm:px-6 lg:px-8 text-white">
+      {/* Overlay suave */}
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm z-0" />
 
-        {/* 🦊 Avatar con Aura y Botones */}
+      <div className="relative z-10 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        {/* Avatar y botones */}
         <motion.div
           className="relative flex flex-col items-center space-y-6"
           initial={{ opacity: 0 }}
@@ -63,20 +61,20 @@ const FormularioContacto = () => {
             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
           />
 
-          {/* 🟢 Botones animados de contacto debajo del avatar */}
-          <motion.div className="flex gap-5"
+          <motion.div
+            className="flex gap-5"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
           >
-            {contactMethods.map(({ href, iconSrc, label, style }) => (
+            {contactMethods.map(({ href, iconSrc, label }) => (
               <motion.a
                 key={label}
                 href={href}
                 target="_blank"
                 rel="noreferrer"
                 aria-label={label}
-                className={`${style} p-4 rounded-full shadow-xl border border-white/20`}
+                className="bg-white/10 backdrop-blur p-4 rounded-full shadow-xl border border-white/20"
                 whileHover={{ scale: 1.15, rotate: [0, 3, -3, 0] }}
                 animate={{ y: [0, -6, 0] }}
                 transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
@@ -87,7 +85,7 @@ const FormularioContacto = () => {
           </motion.div>
         </motion.div>
 
-        {/* 📬 Formulario */}
+        {/* Formulario */}
         <motion.div
           className="w-full"
           initial={{ opacity: 0, x: 50 }}

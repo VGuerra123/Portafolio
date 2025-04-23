@@ -2,35 +2,39 @@ import React from 'react';
 import Header from './components/layout/Header';
 import { Footer } from './components/layout/Footer';
 import Hero from './components/sections/Hero';
-import { HabilidadesTecnicas } from './components/sections/HabilidadesTecnicas';
+import { Formacion } from './components/sections/Formacion';
 import { Projects } from './components/sections/Projects';
 import Contact from './components/sections/Contact';
-import { Formacion } from './components/sections/Formacion';
 import TechPet from './components/ui/TechPet';
 import GlobalToggles from './components/ui/GlobalToggles';
 import BadgesWithTooltips from './components/ui/BadgesWithTooltips';
 import FloatingTechIcons from './components/ui/FloatingTechIcons';
 import VerticalTechCarousel from './components/ui/VerticalTechCarousel';
-
-// ✅ Importación de la imagen
-import profileImage from './assets/profile.png'; // <-- ruta ejemplo
+import ParticleBackground from './components/ui/ParticleBackground';
 
 function App() {
   return (
-    <div className="relative">
+    <div className="relative w-full h-full overflow-hidden">
+      {/* Partículas de fondo global */}
+      <ParticleBackground />
+
+      {/* Elementos flotantes y widgets */}
       <FloatingTechIcons />
       <VerticalTechCarousel />
       <GlobalToggles />
       <TechPet />
       <BadgesWithTooltips />
+
+      {/* Header y contenido principal */}
       <Header />
-      <main>
-        <Hero profileImage={profileImage} /> {/* ✅ Prop agregada */}
+      <main className="relative z-10">
+        <Hero profileImage="/src/assets/Profile.png" />
         <Formacion />
-        <HabilidadesTecnicas />
         <Projects />
         <Contact />
       </main>
+
+      {/* Footer */}
       <Footer />
     </div>
   );
