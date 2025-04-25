@@ -2,44 +2,60 @@
 @tailwind components;
 @tailwind utilities;
 
-/* === Fuente base === */
+/* ========================= */
+/*  FUENTE Y COLORES GLOBALES */
+/* ========================= */
+:root {
+  /* Colores base (modo oscuro) */
+  --color-bg-1: #0f172a; /* slate‑900 */
+  --color-bg-2: #020617; /* slate‑950 */
+  --color-cyan: #06b6d4; /* cyan‑500 */
+  --color-purple: #9333ea; /* purple‑600 */
+}
+
+/* === Fuente base & fondo global (mismo del Hero) === */
+html,
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #0f2027;
-  color: white;
+  height: 100%;
+  margin: 0;
+  color: #ffffff;
   overflow-x: hidden;
+  /* Gradiente vertical suave + fallback sólido */
+  background: var(--color-bg-1);
+  background: linear-gradient(to bottom, var(--color-bg-1) 0%, var(--color-bg-2) 100%);
 }
 
-/* === Textura sutil de fondo === */
-.bg-noise {
+/* Capa de ruido muy sutil (se inyecta sobre el gradiente) */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
   background-image: url('https://www.transparenttextures.com/patterns/asfalt-light.png');
   background-repeat: repeat;
-  opacity: 0.03;
+  opacity: 0.04;
+  z-index: -1;
 }
 
-/* === Animaciones personalizadas === */
+/* ==================================================== */
+/*  UTILIDADES GLOBALES                                 */
+/* ==================================================== */
+
+/* Animación de giro lento */
 @keyframes spin-slow {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 .animate-spin-slow {
-  animation: spin-slow 12s linear infinite;
+  animation: spin-slow 20s linear infinite;
 }
 
+/* Texto degradado animado (como en el Hero) */
 @keyframes gradient-text {
-  0% {
-    background-position: 0% center;
-  }
-  50% {
-    background-position: 100% center;
-  }
-  100% {
-    background-position: 0% center;
-  }
+  0%   { background-position: 0% center; }
+  50%  { background-position: 100% center; }
+  100% { background-position: 0% center; }
 }
 .animate-gradient-text {
   background: linear-gradient(to right, #00ffff, #a855f7, #ec4899);
@@ -50,24 +66,7 @@ body {
   animation: gradient-text 6s ease infinite;
 }
 
-/* === Tarjetas === */
-.card-hover {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.card-hover:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
-}
-
-/* === Botones personalizados === */
-.btn-primary {
-  @apply bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-2 px-6 rounded-xl shadow-md transition;
-}
-
-.btn-outline {
-  @apply border border-cyan-400 text-cyan-300 hover:bg-cyan-600 hover:text-white font-semibold py-2 px-6 rounded-xl shadow-md transition;
-}
-
+/* Parpadeo suave */
 @keyframes soft-blink {
   0%, 100% { opacity: 0.8; }
   50% { opacity: 1; }
@@ -76,29 +75,53 @@ body {
   animation: soft-blink 4s ease-in-out infinite;
 }
 
-.floating-text {
-  text-shadow: 0 0 6px rgba(6, 182, 212, 0.3);
+/* Pulso lento (para orbes / luces) */
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
 }
-/* Aurora digital animada */
+.animate-pulse-slow {
+  animation: pulse-slow 6s ease-in-out infinite;
+}
+
+/* Clase auxiliar para tarjetas elevadas */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+}
+
+/* Botones genéricos */
+.btn-primary {
+  @apply bg-cyan-500 hover:bg-cyan-600 text-white font-semibold py-2 px-6 rounded-xl shadow-md transition;
+}
+
+.btn-outline {
+  @apply border border-cyan-400 text-cyan-300 hover:bg-cyan-600 hover:text-white font-semibold py-2 px-6 rounded-xl shadow-md transition;
+}
+
+/* Aurora digital del Footer (mantenida) */
 .aurora-bg {
-  background: linear-gradient(115deg, #06b6d4, #3b82f6, #9333ea);
+  background: linear-gradient(115deg, var(--color-cyan), #3b82f6, var(--color-purple));
   background-size: 400% 400%;
   animation: aurora-move 14s ease-in-out infinite;
   filter: blur(140px);
   opacity: 0.25;
 }
-
 @keyframes aurora-move {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
+
 /* Fondo radial leve */
 .bg-radial-gradient {
   background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.02) 0%, transparent 80%);
 }
 
-/* Globo animado suavemente flotante */
+/* Globo flotante */
 @keyframes dialog-float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-6px); }
@@ -107,10 +130,10 @@ body {
   animation: dialog-float 4s ease-in-out infinite;
 }
 
-/* Frase tipo máquina de escribir */
+/* Máquina de escribir */
 @keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
+  from { width: 0; }
+  to   { width: 100%; }
 }
 .animate-typing {
   animation: typing 4s steps(60, end) 1 forwards;
@@ -119,18 +142,30 @@ body {
   display: inline-block;
   max-width: 100%;
 }
-@keyframes spin-slow {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+
+/* Sombra ligera en texto flotante */
+.floating-text {
+  text-shadow: 0 0 6px rgba(6, 182, 212, 0.3);
 }
-.animate-spin-slow {
-  animation: spin-slow 20s linear infinite;
+/* ocultar scroll */
+.scrollbar-thin::-webkit-scrollbar { height: 6px }
+.scrollbar-thin::-webkit-scrollbar-thumb { @apply bg-cyan-600/50 rounded }
+
+html{scroll-behavior:smooth;}
+
+
+.animate-pulse-slow      { animation: pulse 6s cubic-bezier(.4,0,.6,1) infinite; }
+.animate-pulse-slow-offset{ animation: pulse 6s cubic-bezier(.4,0,.6,1) infinite 3s; }
+.animate-spin-slower     { animation: spin 40s linear infinite; }
+
+@layer utilities {
+  .animate-gradient     { animation: gradientShift 6s linear infinite; }
+  .animate-spin-slower  { animation: spin 35s linear infinite; }
+  .animate-pulse-orb    { animation: pulse 7s ease-in-out infinite alternate; }
+  .animate-pulse-orb-delay{ animation: pulse 7s ease-in-out 3.5s infinite alternate; }
+  .animate-pulse-fast   { animation: pulse 4s ease-in-out infinite; }
+  .animate-bounce-fast  { animation: bounce 1.2s infinite; }
 }
 
-@keyframes pulse-slow {
-  0%, 100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.1); }
-}
-.animate-pulse-slow {
-  animation: pulse-slow 6s ease-in-out infinite;
-}
+/* Gradiente animado */
+@keyframes gradientShift { 0%{background-position:0% 50%} 100%{background-position:100% 50%} }

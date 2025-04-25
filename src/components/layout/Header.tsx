@@ -1,135 +1,106 @@
+// src/components/layout/Header.tsx
 import React, { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Sun, Moon, Globe, MapPin, Thermometer } from 'lucide-react';
 import { useTheme } from '../hooks/useTheme';
 import logo from '../../assets/logo.png';
 
-// Para obtener la temperatura y ubicación
-const Header = () => {
+const Header: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
-  const [location, setLocation] = useState<string>('');
-  const [temperature, setTemperature] = useState<string>('');
-  const [time, setTime] = useState<string>('');
-  
+  const [locationTxt, setLocationTxt] = useState('');
+  const [temperature, setTemperature] = useState('');
+  const [time, setTime] = useState('');
+  const route = useLocation();
+
   useEffect(() => {
-    // Obtener ubicación del usuario
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(async (position) => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-
-        // Usar OpenWeather API para obtener la temperatura
-        const apiKey = '3d893d4f3330e0cee6435072e81fad00';  // Reemplaza con tu clave API
-        const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`);
-        const weatherData = await weatherResponse.json();
-
-        console.log(weatherData);  // Agregar este console.log para verificar los datos de la respuesta
-
-        // Comprobar si la respuesta tiene la propiedad 'sys' antes de acceder a 'country'
-        if (weatherData.sys && weatherData.sys.country) {
-          setLocation(`${weatherData.name}, ${weatherData.sys.country}`);
-        } else {
-          setLocation("Ubicación desconocida");
-        }
-
-        // Comprobar si la temperatura está disponible antes de establecerla
-        if (weatherData.main && weatherData.main.temp) {
-          setTemperature(`${weatherData.main.temp}°C`);
-        } else {
-          setTemperature("Temperatura desconocida");
-        }
+    (async () => {
+      if (!navigator.geolocation) return;
+      navigator.geolocation.getCurrentPosition(async ({ coords }) => {
+        const apiKey = '3d893d4f3330e0cee6435072e81fad00';
+        const res = await fetch(
+          `https://api.openweathermap.org/data/2.5/weather?lat=${coords.latitude}&lon=${coords.longitude}&appid=${apiKey}&units=metric`
+        );
+        const data = await res.json();
+        setLocationTxt(data?.sys?.country ? `${data.name}, ${data.sys.country}` : 'Ubicación desconocida');
+        setTemperature(data?.main?.temp ? `${Math.round(data.main.temp)}°C` : 'Temperatura desconocida');
       });
-    }
-
-    // Actualizar la hora cada minuto
-    const interval = setInterval(() => {
-      const currentTime = new Date();
-      setTime(currentTime.toLocaleTimeString('es-ES', { hour12: false }));
-    }, 1000);
-
-    // Limpiar el intervalo cuando el componente se desmonte
-    return () => clearInterval(interval);
+    })();
   }, []);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime(new Date().toLocaleTimeString('es-ES', { hour12: false }));
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const navLink = `relative group text-sm font-semibold transition-colors after:absolute after:left-0 after:bottom-0 after:h-[2px] after:bg-cyan-400 after:w-0 group-hover:after:w-full after:transition-all after:duration-300`;
+
   return (
-    <header className="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 sm:px-6 py-3 bg-transparent backdrop-blur-md shadow-none">
-      {/* Logo y Toggles */}
-      <div className="flex items-center gap-4 sm:gap-5">
-        <div className="relative p-2 bg-black/10 backdrop-blur-xl rounded-full shadow-[0_0_20px_rgba(0,255,255,0.3)] hover:shadow-cyan-400/40 transition duration-500">
-          <img
-            src={logo}
-            alt="Logo VG"
-            className="w-16 h-16 drop-shadow-xl hover:scale-105 transition duration-300"
-          />
-        </div>
+    <header className="fixed top-0 left-0 w-full z-50 flex items-center justify-between px-6 md:px-10 py-3 backdrop-blur-md bg-transparent">
+      {/* Logo + Toggles */}
+      <div className="flex items-center gap-6">
+        <Link
+          to="/"
+          className="relative p-1 rounded-full bg-black/10 hover:bg-cyan-500/20 transition backdrop-blur-xl shadow-md"
+        >
+          <img src={logo} alt="Logo VG" className="w-14 h-14 hover:scale-105 transition-transform drop-shadow" />
+        </Link>
 
         <div className="flex items-center gap-3">
-          {/* Interruptor de modo claro/oscuro */}
           <button
             onClick={toggleTheme}
-            className="text-white hover:text-cyan-400 transition duration-300 p-2 rounded-full bg-black/10 backdrop-blur-md hover:bg-black/30 transform hover:scale-110"
+            className="p-2 rounded-full bg-black/20 hover:bg-cyan-500/20 text-white hover:text-cyan-400 transition"
             title="Cambiar tema"
           >
             {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
           </button>
-          
-          {/* Interruptor de idioma */}
+
           <button
-            className="text-white hover:text-cyan-400 transition duration-300 p-2 rounded-full bg-black/10 backdrop-blur-md hover:bg-black/30 transform hover:scale-110"
+            className="p-2 rounded-full bg-black/20 hover:bg-cyan-500/20 text-white hover:text-cyan-400 transition"
             title="Cambiar idioma"
           >
             <Globe size={20} />
           </button>
 
-          {/* Hora al lado del idioma con resplandor */}
-          <div className="text-white text-sm font-semibold text-shadow-lg">{time || 'Cargando hora...'}</div>
+          <span className="text-sm font-mono text-cyan-300">{time || '--:--'}</span>
         </div>
       </div>
 
-      {/* Información de ubicación y temperatura con solo iconos */}
-      <div className="text-white flex items-center gap-6">
-        {/* Icono de ubicación con valor */}
-        <div className="flex items-center gap-2">
-          <MapPin size={16} />
-          <p className="text-sm">{location || 'Cargando ubicación...'}</p>
+      {/* Ubicación y temperatura */}
+      <div className="hidden lg:flex items-center gap-6 text-cyan-200 text-xs font-medium">
+        <div className="flex items-center gap-1">
+          <MapPin size={16} /> <span>{locationTxt || 'Ubicación...'}</span>
         </div>
-
-        {/* Icono de temperatura con valor */}
-        <div className="flex items-center gap-2">
-          <Thermometer size={16} />
-          <p className="text-sm">{temperature || 'Cargando temperatura...'}</p>
+        <div className="flex items-center gap-1">
+          <Thermometer size={16} /> <span>{temperature || 'Temp...'}</span>
         </div>
       </div>
 
       {/* Navegación */}
-      <nav className="hidden md:flex items-center gap-6 text-sm text-white font-medium drop-shadow-sm">
-        <a
-          href="#hero"
-          className="hover:text-cyan-400 transition relative group"
-        >
+      <nav className="hidden md:flex items-center gap-8 text-white drop-shadow-md">
+        <a href="/#hero" className={`${navLink}`}>
           Inicio
-          <span className="absolute inset-0 w-full h-[2px] bg-cyan-400 scale-x-0 group-hover:scale-x-100 transition-transform"></span>
         </a>
-        <a
-          href="#formacion"
-          className="hover:text-cyan-400 transition relative group"
-        >
+        <a href="/#formacion" className={`${navLink}`}>
           Sobre mí
-          <span className="absolute inset-0 w-full h-[2px] bg-cyan-400 scale-x-0 group-hover:scale-x-100 transition-transform"></span>
         </a>
-        <a
-          href="#projects"
-          className="hover:text-cyan-400 transition relative group"
+        <Link
+          to="/projects"
+          className={`${navLink} ${
+            route.pathname.startsWith('/projects') ? 'text-cyan-400 after:w-full' : ''
+          }`}
         >
           Proyectos
-          <span className="absolute inset-0 w-full h-[2px] bg-cyan-400 scale-x-0 group-hover:scale-x-100 transition-transform"></span>
-        </a>
-        <a
-          href="#contact"
-          className="hover:text-cyan-400 transition relative group"
+        </Link>
+        <Link
+          to="/contact"
+          className={`${navLink} ${
+            route.pathname === '/contact' ? 'text-cyan-400 after:w-full' : ''
+          }`}
         >
           Contacto
-          <span className="absolute inset-0 w-full h-[2px] bg-cyan-400 scale-x-0 group-hover:scale-x-100 transition-transform"></span>
-        </a>
+        </Link>
       </nav>
     </header>
   );

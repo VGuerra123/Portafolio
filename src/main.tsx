@@ -1,20 +1,27 @@
 // src/main.tsx
-import { StrictMode, useEffect } from 'react';
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App.tsx';
+import { BrowserRouter } from 'react-router-dom';
+
+import App from './App';
 import './styles/index.css';
+
 import 'aos/dist/aos.css';
 import AOS from 'aos';
 
+/* ----------------------------- AOS global ----------------------------- */
 AOS.init({
-  duration: 1000,      // duración de animación en ms
-  easing: 'ease-in-out', // suavizado
-  once: true,            // solo una vez por elemento
-  mirror: false,         // no repite al salir de vista
+  duration: 1000,
+  easing: 'ease-in-out',
+  once: true,
+  mirror: false,
 });
 
+/* --------------------------- Render principal ------------------------- */
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
-  </StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StrictMode>,
 );
